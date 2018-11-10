@@ -4,15 +4,17 @@ service:
 # Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
+  - serverless-dotenv-plugin
+  - serverless-offline
 
 provider:
   name: aws
   runtime: nodejs8.10
 
 functions:
-  hello:
-    handler: handler.hello
+  dadJoke:
+    handler: src/handler.dadJoke
     events:
       - http:
           method: get
-          path: hello
+          path: dad-joke
