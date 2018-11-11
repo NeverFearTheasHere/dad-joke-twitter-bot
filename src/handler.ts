@@ -1,12 +1,20 @@
 import { Handler } from 'aws-lambda';
 import { fetchRandomDadJoke } from './dad-joke-api';
+import { tweet } from './twitter';
 
 export const dadJoke: Handler = async () => {
-  let dadJoke;
   try {
-    dadJoke = await fetchRandomDadJoke();
+    const dadJoke = await fetchRandomDadJoke();
+    await tweet(dadJoke);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        result: 'Successfully tweeted this Dad joke',
+        dadJoke,
+      }),
+    };
   } catch (error) {
-    console.error('error when fetching random dad joke:', error);
+    console.error('Error when trying to tweet a dad joke:', error);
     return {
       statusCode: 500,
       body: JSON.stringify(
@@ -14,9 +22,4 @@ export const dadJoke: Handler = async () => {
       ),
     };
   }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify(dadJoke),
-  };
 };
