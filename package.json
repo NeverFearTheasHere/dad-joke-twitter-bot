@@ -4,7 +4,8 @@
   "description": "Twitter bot that tweets dad jokes, for the Serverless #noServerNovember challenge",
   "main": "handler.js",
   "scripts": {
-    "dev": "sls --port 3333 offline start"
+    "dev": "sls --port 3333 offline start",
+    "deploy": "serverless deploy"
   },
   "dependencies": {
     "axios": "0.18.0",
